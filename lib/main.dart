@@ -28,7 +28,8 @@ class Portal extends StatefulWidget {
 }
 
 class _PortalState extends State<Portal> {
-  final myController = TextEditingController();
+  final _urlController = TextEditingController();
+  final _domainController = TextEditingController();
   String dropdownValue = 'Mobile';
   final _userAgentVersions = <String>['Mobile', 'Desktop'];
   @override
@@ -39,25 +40,22 @@ class _PortalState extends State<Portal> {
         backgroundColor: Colors.deepPurple[800],
       ),
       body: Container(
-        color: Colors.deepPurple,
-        child: Column(
+        margin: EdgeInsets.all(5),
+        child: ListView(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(40.0),
+              padding: const EdgeInsets.only(top: 50, bottom: 20),
               child: _buildUserAgentType(),
             ),
             Padding(
-              padding: const EdgeInsets.all(40.0),
+              padding: const EdgeInsets.only(top: 20, bottom: 20),
               child: _buildDomain(),
             ),
             Padding(
-              padding: const EdgeInsets.all(40.0),
+              padding: const EdgeInsets.only(top: 20, bottom: 20),
               child: _buildUrl(),
             ),
-            Padding(
-              padding: const EdgeInsets.all(100.0),
-              child: _buildRaisedButton(context),
-            ),
+            _buildRaisedButton(context),
           ],
         ),
       ),
@@ -66,99 +64,73 @@ class _PortalState extends State<Portal> {
 
   Widget _buildRaisedButton(BuildContext context) {
     return Container(
-      alignment: Alignment(0, 0),
+      height: 50.0,
       child: RaisedButton(
+        color: Colors.deepOrange[800],
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+              side: BorderSide(color: Colors.deepOrange[400])),
+          // shape:
+          //     RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
           textColor: Colors.white,
-          color: Colors.deepPurple,
           padding: const EdgeInsets.all(0.0),
-          child: Container(
-              height: 50,
-              width: 200,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    Color(0xFF0D47A1),
-                    Color(0xFF1976D2),
-                    Color(0xFF42A5F5),
-                  ],
-                ),
-              ),
-              padding: const EdgeInsets.all(10.0),
-              child: Text('Analyze',
-                  textAlign: TextAlign.center, style: TextStyle(fontSize: 20))),
+          child: Text('Analyze',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 36, color: Colors.white)),
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Page2(data: myController.text)),
+                  builder: (context) => Page2(data: _urlController.text)),
             );
           }),
     );
   }
 
-  Material _buildUrl() {
-    return Material(
-      borderOnForeground: true,
-      color: Colors.purple[50],
-      child: Container(
-        height: 80,
-        width: 400,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          gradient: LinearGradient(
-            colors: <Color>[
-              Color(0xFF0D47A1),
-              Color(0xFF1976D2),
-              Color(0xFF42A5F5),
-            ],
-          ),
-        ),
-        child: TextField(
-          controller: myController,
-          decoration: InputDecoration(
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-              hintText: 'Enter a Url'),
-        ),
-      ),
+  Widget _buildUrl() {
+    return TextField(
+      controller: _urlController,
+      keyboardType: TextInputType.multiline,
+      decoration: InputDecoration(
+          labelText: 'URL',
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+          hintText: 'Enter a Url'),
     );
   }
 
-  Material _buildDomain() {
-    return Material(
-      child: TextField(
-        controller: myController,
-        decoration: InputDecoration(
-            border: InputBorder.none, hintText: 'Enter a Domain'),
-      ),
+  Widget _buildDomain() {
+    return TextField(
+      controller: _domainController,
+      keyboardType: TextInputType.multiline,
+      decoration: InputDecoration(
+          labelText: 'Domain',
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+          hintText: 'Enter a Domain'),
     );
   }
 
-  Material _buildUserAgentType() {
-    return Material(
-      child: DropdownButton<String>(
-        value: dropdownValue,
-        icon: Icon(Icons.arrow_downward),
-        iconSize: 24,
-        elevation: 16,
-        style: TextStyle(color: Colors.deepPurple),
-        underline: Container(
-          height: 2,
-          color: Colors.deepPurpleAccent,
-        ),
-        onChanged: (String newValue) {
-          setState(() {
-            dropdownValue = newValue;
-          });
-        },
-        items: _userAgentVersions.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
+  Widget _buildUserAgentType() {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: Icon(Icons.arrow_downward),
+      iconSize: 24,
+      elevation: 16,
+      style: TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
       ),
+      onChanged: (String newValue) {
+        setState(() {
+          dropdownValue = newValue;
+        });
+      },
+      items: _userAgentVersions.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 }
