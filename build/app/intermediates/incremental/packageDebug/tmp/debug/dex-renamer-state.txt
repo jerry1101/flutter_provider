@@ -1,0 +1,4 @@
+#Mon Jun 01 13:14:53 EDT 2020
+base.0=/home/jerry/Desktop/git_repo/flutter_provider/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
