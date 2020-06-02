@@ -6,11 +6,11 @@ import 'movieListPage.dart';
 import 'dart:developer' as developer;
 
 class Page2 extends StatelessWidget {
-  String data;
+  final String data;
   Page2({Key key, @required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    developer.log("--------------->"+data);
+    developer.log("------>"+data);
     return MaterialApp(title: "Movies",
         home: ChangeNotifierProvider(
           // builder: (_) => MovieListViewModel(),
