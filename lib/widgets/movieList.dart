@@ -19,12 +19,14 @@ class MovieList extends StatelessWidget {
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
-                color: Colors.amber,
+                
+                color: Colors.lightBlue[100],
                 border: Border.all(width: 5),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: ListTile(
-                title: Text(movie.title),
+                
+                title: Text(movie.title,style: Theme.of(context).textTheme.headline6,),
                 leading: FlutterLogo(),
               ),
             ),
