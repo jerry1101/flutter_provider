@@ -11,7 +11,7 @@ class Webservice {
     // var client = Client();
     List<Movie> movies = [];
     try {
-      var response = await Dio().get('https://www.totalwine.com/careers',
+      var response = await Dio().get('https://www.drizly.com/',
           options: Options(headers: {
             'User-Agent':
                 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36'
@@ -35,9 +35,11 @@ class Webservice {
       Response response, Document document, List<Movie> movies) {
     const desc_selector = 'meta[name="description"]';
     const canonical_selector = 'link[rel="canonical"]';
+    const markup_selector = 'script[type="application/ld+json"]';
+
     var resultUri = response.redirects.length > 0
         ? response.redirects[0].location
-        : response.realUri.toString();
+        : response.request.path.toString();
     var redirectCode =
         response.redirects.length > 0 ? response.redirects[0].statusCode : 200;
 
@@ -50,6 +52,13 @@ class Webservice {
     var canonical = document.querySelectorAll(canonical_selector).isNotEmpty
         ? document.querySelectorAll(canonical_selector).first.attributes['href']
         : "";
+    var markup = document.querySelectorAll(markup_selector).isNotEmpty
+        ? document
+            .querySelectorAll(markup_selector)
+            .map((e) => e.outerHtml)
+            // .reduce((value, element) => '' + element)
+        // .first.outerHtml.toString()
+        : "";
     Element title = document.getElementsByTagName('title').first;
 
     movies.add(Movie(
@@ -59,6 +68,7 @@ class Webservice {
     movies
         .add(Movie(title: 'description', description: metaDescription.trim()));
     movies.add(Movie(title: 'canonical', description: canonical.trim()));
+    movies.add(Movie(title: 'schema markup', description: markup.toString()));
   }
 
   void _AddErrorResult(List<Movie> movies, e) {
