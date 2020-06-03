@@ -15,9 +15,10 @@ class Page2 extends StatelessWidget {
     return MaterialApp(
         title: "Movies",
         home: ChangeNotifierProvider(
-          // builder: (_) => MovieListViewModel(),
           create: (BuildContext context) => MovieListViewModel(),
-          child: MovieListPage(requestInput: requestInput,),
+          child: MovieListPage(
+            requestInput: requestInput,
+          ),
         ));
   }
 }
