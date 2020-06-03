@@ -2,16 +2,19 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_provider/models/movie.dart';
+import 'package:flutter_provider/models/request_criteria.dart';
 import 'package:html/parser.dart';
-
+import 'dart:developer' as developer;
 import 'package:html/dom.dart';
 
 class Webservice {
-  Future<List<Movie>> getAllMovies() async {
-    // var client = Client();
+  Future<List<Movie>> getAllMovies(HttpRequestInput requestInput) async {
+    
+    developer.log("------>" + requestInput.domain);
     List<Movie> movies = [];
     try {
-      var response = await Dio().get('https://www.drizly.com/',
+      // var response = await Dio().get('https://www.drizly.com/',
+      var response = await Dio().get(requestInput.domain + requestInput.uri,
           options: Options(headers: {
             'User-Agent':
                 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36'
@@ -53,10 +56,8 @@ class Webservice {
         ? document.querySelectorAll(canonical_selector).first.attributes['href']
         : "";
     var markup = document.querySelectorAll(markup_selector).isNotEmpty
-        ? document
-            .querySelectorAll(markup_selector)
-            .map((e) => e.outerHtml)
-            // .reduce((value, element) => '' + element)
+        ? document.querySelectorAll(markup_selector).map((e) => e.outerHtml)
+        // .reduce((value, element) => '' + element)
         // .first.outerHtml.toString()
         : "";
     Element title = document.getElementsByTagName('title').first;

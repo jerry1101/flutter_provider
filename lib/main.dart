@@ -3,6 +3,7 @@ import 'package:flutter_provider/pages/movieListPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'models/request_criteria.dart';
 import 'pages/page2.dart';
 
 void main() => runApp(App());
@@ -28,7 +29,10 @@ class App extends StatelessWidget {
           // text styling for headlines, titles, bodies of text, and more.
           textTheme: TextTheme(
             headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-            headline6: TextStyle(color: Colors.white,fontSize: 36.0, fontStyle: FontStyle.normal),
+            headline6: TextStyle(
+                color: Colors.white,
+                fontSize: 36.0,
+                fontStyle: FontStyle.normal),
             bodyText2: TextStyle(fontSize: 20.0, fontFamily: 'Hind'),
           ),
         ) // ChangeNotifierProvider(
@@ -55,9 +59,8 @@ class _PortalState extends State<Portal> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SEO Checker'),
-        backgroundColor: Theme.of(context).primaryColor
-      ),
+          title: Text('SEO Checker'),
+          backgroundColor: Theme.of(context).primaryColor),
       body: Container(
         margin: EdgeInsets.all(5),
         child: ListView(
@@ -91,20 +94,23 @@ class _PortalState extends State<Portal> {
           color: Theme.of(context).buttonColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(18.0),
-              side: BorderSide(color:  Theme.of(context).accentColor)),
+              side: BorderSide(color: Theme.of(context).accentColor)),
           // shape:
           //     RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
           textColor: Colors.white,
           padding: const EdgeInsets.all(0.0),
           child: Text('Analyze',
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline6
-              ),
+              style: Theme.of(context).textTheme.headline6),
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Page2(data: _urlController.text)),
+                  builder: (context) => Page2(
+                      requestInput: HttpRequestInput(
+                          userAgentVersion: dropdownValue,
+                          domain: _domainController.text,
+                          uri: _urlController.text))),
             );
           }),
     );
@@ -115,7 +121,7 @@ class _PortalState extends State<Portal> {
       controller: _urlController,
       keyboardType: TextInputType.multiline,
       decoration: InputDecoration(
-        hintStyle: Theme.of(context).textTheme.bodyText2,
+          hintStyle: Theme.of(context).textTheme.bodyText2,
           labelText: 'URL',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
           hintText: 'Enter a Url'),
@@ -127,7 +133,7 @@ class _PortalState extends State<Portal> {
       controller: _domainController,
       keyboardType: TextInputType.multiline,
       decoration: InputDecoration(
-        hintStyle: Theme.of(context).textTheme.bodyText2,
+          hintStyle: Theme.of(context).textTheme.bodyText2,
           labelText: 'Domain',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
           hintText: 'Enter a Domain'),
@@ -138,7 +144,7 @@ class _PortalState extends State<Portal> {
     return Container(
       width: 30,
       height: 60,
-      padding: EdgeInsets.only(left:250,right:50),
+      padding: EdgeInsets.only(left: 250, right: 50),
       child: DropdownButton<String>(
         value: dropdownValue,
         icon: Icon(Icons.arrow_downward),
@@ -157,7 +163,10 @@ class _PortalState extends State<Portal> {
         items: _userAgentVersions.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
-            child: Text(value,textAlign: TextAlign.center,),
+            child: Text(
+              value,
+              textAlign: TextAlign.center,
+            ),
           );
         }).toList(),
       ),
