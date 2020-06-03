@@ -4,6 +4,8 @@ import 'package:flutter_provider/viewmodels/movieListViewModel.dart';
 import 'package:flutter_provider/widgets/movieList.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
+
 class MovieListPage extends StatefulWidget {
   final HttpRequestInput requestInput;
   MovieListPage({Key key, @required this.requestInput}) : super(key: key);
@@ -25,7 +27,7 @@ class _MovieListPageState extends State<MovieListPage> {
     if (vm.movies == null) {
       return Align(child: CircularProgressIndicator());
     } else if (vm.movies.isEmpty) {
-      return Align(child: Text("No movies found."));
+      return Align(child: Text("No found."));
     } else {
       return MovieList(movies: vm.movies);
     }
@@ -37,7 +39,16 @@ class _MovieListPageState extends State<MovieListPage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Movies"),
+          title: Text("SEO Implementation"),
+          leading: new IconButton(
+            icon: new Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Portal()),
+              );
+            },
+          ),
         ),
         body: _buildUI(vm));
   }
