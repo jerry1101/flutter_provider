@@ -10,7 +10,7 @@ import 'package:html/dom.dart';
 class Webservice {
   Future<List<Movie>> getAllMovies(HttpRequestInput requestInput) async {
     
-    developer.log("------>" + requestInput.domain);
+    developer.log("------>" + UserAgent.fromType[requestInput.userAgentVersion]);
     List<Movie> movies = [];
     try {
       // var response = await Dio().get('https://www.drizly.com/',

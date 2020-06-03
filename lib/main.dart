@@ -66,6 +66,9 @@ class _PortalState extends State<Portal> {
         margin: EdgeInsets.all(5),
         child: ListView(
           children: <Widget>[
+            Image.network(
+              'https://freerangestock.com/thumbnail/119557/web-developer--web-development--programmer--programming.jpg',
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 50, bottom: 20),
               child: _buildUserAgentType(),
