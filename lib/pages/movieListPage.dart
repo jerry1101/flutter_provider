@@ -40,6 +40,7 @@ class _MovieListPageState extends State<MovieListPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text("SEO Implementation"),
+          backgroundColor: Theme.of(context).cardColor,
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back),
             onPressed: () {

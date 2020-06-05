@@ -22,6 +22,7 @@ class App extends StatelessWidget {
           primaryColor: Colors.deepPurple[800],
           accentColor: Colors.blueGrey,
           buttonColor: Colors.deepPurple[300],
+          cardColor: Colors.green[800],
 
           // Define the default font family.
           fontFamily: 'Georgia',
@@ -30,6 +31,10 @@ class App extends StatelessWidget {
           // text styling for headlines, titles, bodies of text, and more.
           textTheme: TextTheme(
             headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+            headline5:  TextStyle(
+                color: Colors.blue[800],
+                fontSize: 22.0,
+                fontStyle: FontStyle.normal),
             headline6: TextStyle(
                 color: Colors.white,
                 fontSize: 36.0,
@@ -59,6 +64,7 @@ class _PortalState extends State<Portal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
           title: Text('SEO Checker'),
           backgroundColor: Theme.of(context).primaryColor),
@@ -92,6 +98,7 @@ class _PortalState extends State<Portal> {
   }
 
   Widget _buildRaisedButton(BuildContext context) {
+    print(Theme.of(context).buttonColor);
     return Container(
       height: 50.0,
       child: RaisedButton(

@@ -12,9 +12,10 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     developer.log("------>" + requestInput.domain);
-    return MaterialApp(
-        title: "Movies",
-        home: ChangeNotifierProvider(
+    return Scaffold(
+        // appBar: AppBar(),
+        // title: "Movies",
+        body: ChangeNotifierProvider(
           create: (BuildContext context) => MovieListViewModel(),
           child: MovieListPage(
             requestInput: requestInput,
