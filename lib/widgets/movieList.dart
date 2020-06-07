@@ -27,7 +27,7 @@ class MovieList extends StatelessWidget {
               child: ListTile(
                 
                 title: Text(movie.title,style: Theme.of(context).textTheme.headline5,),
-                leading: FlutterLogo(),
+                leading: const Icon(Icons.perm_device_information),
               ),
             ),
             ListTile(

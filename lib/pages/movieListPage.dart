@@ -40,7 +40,7 @@ class _MovieListPageState extends State<MovieListPage> {
           title: Text("SEO Implementation"),
           backgroundColor: Theme.of(context).cardColor,
           leading: new IconButton(
-            icon: new Icon(Icons.arrow_back),
+            icon: new Icon(Icons.backspace),
             onPressed: () {
               Navigator.push(
                 context,
