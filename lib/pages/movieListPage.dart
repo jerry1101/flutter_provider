@@ -10,17 +10,15 @@ class MovieListPage extends StatefulWidget {
   final HttpRequestInput requestInput;
   MovieListPage({Key key, @required this.requestInput}) : super(key: key);
   @override
-  _MovieListPageState createState() => _MovieListPageState(this.requestInput);
+  _MovieListPageState createState() => _MovieListPageState();
 }
 
 class _MovieListPageState extends State<MovieListPage> {
-  final HttpRequestInput requestInput;
-  _MovieListPageState(this.requestInput);
   @override
   void initState() {
     super.initState();
     Provider.of<MovieListViewModel>(context, listen: false)
-        .fetchAllMovies(requestInput);
+        .fetchAllMovies(widget.requestInput);
   }
 
   Widget _buildUI(MovieListViewModel vm) {
